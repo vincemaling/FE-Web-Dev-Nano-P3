@@ -1,0 +1,15 @@
+﻿body {
+    text-align: center;
+}
+
+.buttonblock {
+	display: block;
+	text-align: center;
+	padding-top: 20px;
+}
+
+button {
+	margin-left: 20px;
+	margin-right: 20px;
+	font-size: large;
+}
