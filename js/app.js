@@ -4,7 +4,8 @@ var maxSpeed=200;
 var minSpeed=50;
 var enemyLimit=3;
 
-// Enemies our player must avoid
+// The Enemy class includes a randomized Y position (i.e. each enemy could start on a different row), an initial X position of 0, a randomized speed (within certain 
+// bounds, which can be increased by the player to increase difficulty) and a sprite image.
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -15,11 +16,10 @@ var Enemy = function() {
     this.x = 0;
     this.randomizeVertical();
     this.randomizeSpeed();
-    console.log("Y: " + this.y);
-}
+};
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+// This function updates the enemy's X position according to its assigned speed (enemies have varying speeds). The dt variable is used to control for time between
+// machines/processors. After the enemy's position has been established, we call the checkCollisions function to determine if the player ran into an Enemy.
 Enemy.prototype.update = function(dt) {
 	if (this.x<500) {
 		this.x=this.x+(dt*this.speed);
@@ -28,22 +28,22 @@ Enemy.prototype.update = function(dt) {
 		this.randomizeVertical();
 	}
 	this.checkCollisions();	  
-}
+};
 
 // This function randomizes the speed of an Enemy (within the bounds of max and min speeds set at the top of this file)
 Enemy.prototype.randomizeSpeed = function() {
 	this.speed = maxSpeed*Math.random()+minSpeed;
-}
+};
 
-// Thius function randomizes the vertical placement of each Enemy
+// Thius function randomizes the vertical placement of each Enemy (i.e. which row it will run in)
 Enemy.prototype.randomizeVertical = function() {
 	this.y = 83*(parseInt(3*Math.random())+1)-20;
-}
+};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 // This function calculates the distance between the in-context Enemy and the Player
 // If the Enemy and the Player have collided, the Player is reset to his initial square
@@ -58,29 +58,23 @@ Enemy.prototype.checkCollisions = function() {
   if (distance < 30) {
   	player.x=202;
   	player.y=377;
-  };
-}
+  }
+};
 
-
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+// The Player class includes a starting X position, a starting Y position, and a sprite image
 var Player = function() {
-    var chargen = parseInt(5*Math.random());
-    console.log(chargen);
-    if (chargen==0) var charurl='images/char-boy.png';
-    if (chargen==1) var charurl='images/char-cat-girl.png';
-    if (chargen==2) var charurl='images/char-horn-girl.png';
-    if (chargen==3) var charurl='images/char-pink-girl.png';    
-    if (chargen==4) var charurl='images/char-princess-girl.png';    
-	this.sprite=charurl;
+	this.sprite='images/char-princess-girl.png';
 	this.x=202;
 	this.y=377;
 };
+
+// The render function draws the player's character on the screen in the appropriate X, Y coordinates
 Player.prototype.update = function() {};
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+// This function determines which key the player pressed (up, right, left, down) and moves his character one space in the corresponding direction
 Player.prototype.handleInput = function(keyCode) {
 	console.log(keyCode);
 	switch (keyCode) {
@@ -104,13 +98,12 @@ Player.prototype.handleInput = function(keyCode) {
 	console.log("X, Y: " + player.x+", "+player.y);
 
 };
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
 
+// A single player is instabtianted to the player variable. Meanwhile, a number of enemies equal to the enemyLimit (which can be configured by the player to increase 
+// diffciulty) is added to the array allEnemies
 var player = new Player();
 var allEnemies=[];
-for (i=0; i<enemyLimit; i++) {
+for (var i=0; i<enemyLimit; i++) {
 	var enemy = new Enemy();
 	allEnemies.push(enemy);
 }
@@ -137,10 +130,9 @@ document.getElementById("addEnemy").addEventListener("click", function(){
 // This function increases the speeds of all existing Enemies, and the maximum and minimum speeds of newly created Enemies.
 document.getElementById("increaseSpeed").addEventListener("click", function(){
     maxSpeed=maxSpeed+100;
-    minspeed=minSpeed+50;
+    minSpeed=minSpeed+50;
     allEnemies.forEach(function(enemy) {
         enemy.speed=enemy.speed+75;
     });
 
 });
-
