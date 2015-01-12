@@ -13,8 +13,10 @@ Simply download the ZIP file from Github, extract the files, and open "index.htm
 ### ENHANCEMENTS: ###
 ------------
 Over and above Udacity's basic requirements, I've added the following functionality:  
-1. An "Add Enemy" button that allows the player to add bug monsters, effectively increasing the difficulty of the game  
-2. An "Increase Speed" button that increases the speed of all bug monsters, effectively increasing the difficulty of the game  
+<ol>
+<li>An "Add Enemy" button that allows the player to add bug monsters, effectively increasing the difficulty of the game</li>
+<li>An "Increase Speed" button that increases the speed of all bug monsters, effectively increasing the difficulty of the game</li>
+</ol>
 
 The two enhancements can result in some very challenging scenarios for our princess:
 ![Alt text](https://github.com/vincemaling/FE-Web-Dev-Nano-P3/blob/master/images/arcadegamess.png "Lots of bug monsters!")
